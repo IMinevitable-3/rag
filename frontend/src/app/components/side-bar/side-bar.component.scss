@@ -22,20 +22,6 @@
     }
   }
 
-  .toggle-btn {
-    display: flex;
-    width: 20px;
-    height: 20px;
-    color: black;
-    background: var(--color-surface);
-    border-left: none;
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    font-size: 12px;
-    cursor: pointer;
-    text-align: center;
-    line-height: 18px;
-  }
-
   ul {
     list-style: none;
     padding: 0;
@@ -59,4 +45,15 @@
     background-color: var(--color-background);
     cursor: pointer;
   }
+}
+.toggle-btn {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  color: black;
+  border-radius: 1px var(--radius-sm) var(--radius-sm) 0;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 18px;
 }

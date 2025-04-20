@@ -23,3 +23,8 @@
   <h3>📝 Extracted Text:</h3>
   <pre>{{ extractedText }}</pre>
 </div>
+
+<app-ocr-result
+  [text]="extractedText"
+  [structured]="structuredData"
+></app-ocr-result>

@@ -3,8 +3,8 @@ const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
 const { v4: uuidv4 } = require("uuid");
-const { extractTextFromImage } = require("./ocrProcessor"); // assumes you have this function
-
+const { extractTextFromImage } = require("./ocrProcessor");
+const { serializer } = require("./serializer");
 const app = express();
 const port = 3000;
 
@@ -57,16 +57,22 @@ app.post("/api/ocr", upload.single("image"), async (req, res) => {
     const filePath = path.resolve(req.file.path);
     const text = await extractTextFromImage(filePath);
 
+    const structured = await serializer(text);
+
     const historyItem = {
       filename: req.file.originalname,
       text,
+      structured,
       timestamp: new Date().toISOString(),
     };
 
     userHistory.get(req.userToken).push(historyItem);
 
-    res.setHeader("x-user-token", req.userToken); // Return token to frontend
-    res.json({ text });
+    res.setHeader("x-user-token", req.userToken);
+    res.json({
+      text,
+      structured,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to extract text from image." });
@@ -77,8 +83,8 @@ app.post("/api/ocr", upload.single("image"), async (req, res) => {
 app.get("/api/history", (req, res) => {
   try {
     const history = userHistory.get(req.userToken) || [];
-    res.setHeader("x-user-token", req.userToken); // make sure it's sent
-    res.json({ history }); // MUST be: { history: [...] }
+    res.setHeader("x-user-token", req.userToken);
+    res.json({ history });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to retrieve history." });

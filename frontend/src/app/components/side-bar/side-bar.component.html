@@ -1,7 +1,5 @@
 <div class="sidebar" [class.collapsed]="collapsed">
-  <button class="toggle-btn" (click)="collapsed = !collapsed">
-    {{ collapsed ? "▶" : "◀" }}
-  </button>
+  <i class="pi pi-bars toggle-btn" (click)="collapsed = !collapsed"></i>
   <h3 *ngIf="!collapsed" class="heading-bar">History</h3>
   <ul *ngIf="!collapsed">
     <li *ngFor="let item of history" class="item-wrapper">

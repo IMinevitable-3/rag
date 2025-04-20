@@ -22,14 +22,16 @@ export class OcrService {
     }
   }
 
-  uploadImageAndExtractText(file: File): Observable<{ text: string }> {
+  uploadImageAndExtractText(
+    file: File
+  ): Observable<{ text: string; structured: any }> {
     const formData = new FormData();
     formData.append('image', file);
 
     const headers = new HttpHeaders().set('x-user-token', this.getToken());
 
     return this.http
-      .post<{ text: string }>(`${this.apiUrl}/ocr`, formData, {
+      .post<{ text: string; structured: any }>(`${this.apiUrl}/ocr`, formData, {
         headers,
         observe: 'response',
       })

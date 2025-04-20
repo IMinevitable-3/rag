@@ -1,0 +1,47 @@
+<div class="ocr-result">
+  <ng-container *ngIf="structured?.displayMode === 'json'; else graphView">
+    <h3>Extracted JSON</h3>
+    <pre>{{ structured | json }}</pre>
+  </ng-container>
+
+  <ng-template #graphView>
+    <div *ngIf="structured?.graphType === 'bar'">
+      <h3>Bar Graph</h3>
+      <canvas
+        baseChart
+        [data]="{
+          labels: structured.graphData.labels,
+          datasets: [
+            {
+              label: structured.type,
+              data: structured.graphData.values,
+              backgroundColor: '#6366f1'
+            }
+          ]
+        }"
+        [options]="{ responsive: true }"
+        [type]="'bar'"
+      >
+      </canvas>
+    </div>
+
+    <div *ngIf="structured?.graphType === 'pie'">
+      <h3>Pie Chart</h3>
+      <canvas
+        baseChart
+        [data]="{
+          labels: structured.graphData.labels,
+          datasets: [
+            {
+              data: structured.graphData.values,
+              backgroundColor: ['#6366f1', '#f59e0b', '#10b981']
+            }
+          ]
+        }"
+        [options]="{ responsive: true }"
+        [type]="'pie'"
+      >
+      </canvas>
+    </div>
+  </ng-template>
+</div>

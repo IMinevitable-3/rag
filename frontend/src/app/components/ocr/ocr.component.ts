@@ -1,14 +1,16 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { OcrService } from '../../services/ocr.service';
 import { CommonModule } from '@angular/common';
+import { OcrResultComponent } from '../ocr-result/ocr-result.component';
 @Component({
   selector: 'app-ocr',
-  imports: [CommonModule],
+  imports: [CommonModule, OcrResultComponent],
   templateUrl: './ocr.component.html',
   styleUrl: './ocr.component.scss',
 })
 export class OcrComponent {
   extractedText = '';
+  structuredData = {};
   loading = false;
   error = '';
 
@@ -45,6 +47,7 @@ export class OcrComponent {
     this.ocrService.uploadImageAndExtractText(file).subscribe({
       next: (res) => {
         this.extractedText = res.text;
+        this.structuredData = res.structured;
         this.loading = false;
       },
       error: (err) => {
