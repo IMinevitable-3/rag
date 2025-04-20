@@ -1,10 +1,3 @@
-.venv
-.env
-__pycache__/
-*.pyc
-*.pdf
-node_modules/
-
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # Compiled output
@@ -47,6 +40,3 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-.vscode
-uploads/
-eng.traineddata

@@ -1,0 +1,12 @@
+.main-content {
+  padding-left: 280px;
+  transition: var(--transition);
+
+  &.sidebar-open {
+    padding-left: 280px;
+  }
+
+  :host-context(.sidebar-collapsed) & {
+    padding-left: 48px;
+  }
+}
