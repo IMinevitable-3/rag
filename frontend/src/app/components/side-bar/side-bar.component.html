@@ -1,0 +1,13 @@
+<div class="sidebar" [class.collapsed]="collapsed">
+  <i class="pi pi-bars toggle-btn" (click)="collapsed = !collapsed"></i>
+  <h3 *ngIf="!collapsed" class="heading-bar">History</h3>
+  <ul *ngIf="!collapsed">
+    <li *ngFor="let item of history" class="item-wrapper">
+      <strong>{{ item.filename }}</strong
+      ><br />
+      <small>{{ item.timestamp | date : "short" }}</small
+      ><br />
+      <em>{{ item.text | slice : 0 : 50 }}...</em>
+    </li>
+  </ul>
+</div>

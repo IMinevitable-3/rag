@@ -1,0 +1,30 @@
+<div
+  class="drop-zone"
+  (dragover)="onDragOver($event)"
+  (drop)="onDrop($event)"
+  (click)="fileInput.click()"
+>
+  <div class="drop-content">
+    <div class="cloud-icon">☁</div>
+    <p>Drag & drop an image here or click to upload</p>
+  </div>
+  <input
+    #fileInput
+    type="file"
+    accept="image/*"
+    (change)="onFileSelected($event)"
+    hidden
+  />
+</div>
+
+<div *ngIf="loading" class="status">🔄 Processing image...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+<div *ngIf="extractedText" class="output">
+  <h3>📝 Extracted Text:</h3>
+  <pre>{{ extractedText }}</pre>
+</div>
+
+<app-ocr-result
+  [text]="extractedText"
+  [structured]="structuredData"
+></app-ocr-result>
